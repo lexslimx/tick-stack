@@ -4,7 +4,7 @@ services:
     image: influxdb:latest
     volumes:
       # Mount for influxdb data directory
-      - c:/containerdata/influxdb:/var/lib/influxdbdata
+      - c:/containerdata/influxdbdata:/var/lib/influxdb
     ports:
       # The API for InfluxDB is served on port 8086
       - "8086:8086"
@@ -14,9 +14,15 @@ services:
     image: chronograf:latest
     volumes:
       # Mount for chronograf database
-      - c:/containerdata/chronograf/:/var/lib/chronografdata
+      - c:/containerdata/chronografdata:/var/lib/chronograf
     ports:
       # The WebUI for Chronograf is served on port 8888
       - "8888:8888"
     depends_on:
       - influxdb
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - c:/containerdata/grafanadata:/var/lib/grafana grafana/grafana
+    ports:
+      - "3000:3000"
