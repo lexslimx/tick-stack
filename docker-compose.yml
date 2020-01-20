@@ -1,0 +1,22 @@
+version: '3'
+services:
+  influxdb:
+    image: influxdb:latest
+    volumes:
+      # Mount for influxdb data directory
+      - c:/containerdata/influxdb:/var/lib/influxdbdata
+    ports:
+      # The API for InfluxDB is served on port 8086
+      - "8086:8086"
+      #- "8082:8082"
+
+  chronograf:
+    image: chronograf:latest
+    volumes:
+      # Mount for chronograf database
+      - c:/containerdata/chronograf/:/var/lib/chronografdata
+    ports:
+      # The WebUI for Chronograf is served on port 8888
+      - "8888:8888"
+    depends_on:
+      - influxdb
